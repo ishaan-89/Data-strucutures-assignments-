@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-// index in 1-D for lower-triangular (0-based): i>=j
-int idxLT(int i, int j) {           // i,j are 0-based
-    return i*(i+1)/2 + j;           // elements before row i + j
+
+int idxLT(int i, int j) {          
+    return i*(i+1)/2 + j;           
 }
 
 int main() {
