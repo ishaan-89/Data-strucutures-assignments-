@@ -6,7 +6,7 @@ int main() {
     int B[10][3] = { {3,3,3}, {0,1,7}, {1,1,3}, {2,0,6} };
     int C[20][3];
 
-    // Check dimensions
+    
     if(A[0][0] != B[0][0] || A[0][1] != B[0][1]) {
         cout << "Addition not possible\n";
         return 0;
@@ -18,7 +18,7 @@ int main() {
 
     int i=1, j=1, k=1;
 
-    // Merge like merging two sorted arrays
+    
     while(i<=t1 && j<=t2) {
         if(A[i][0] < B[j][0] || 
           (A[i][0]==B[j][0] && A[i][1] < B[j][1])) {
@@ -42,13 +42,13 @@ int main() {
         }
     }
 
-    // Remaining elements
+    
     while(i<=t1) { C[k][0]=A[i][0]; C[k][1]=A[i][1]; C[k][2]=A[i][2]; i++; k++; }
     while(j<=t2) { C[k][0]=B[j][0]; C[k][1]=B[j][1]; C[k][2]=B[j][2]; j++; k++; }
 
     C[0][2] = k-1;
 
-    // Print result
+
     cout << "Addition (A+B) in triplet form:\n";
     cout << "Row Col Val\n";
     for(int x=0; x<=C[0][2]; x++) {
