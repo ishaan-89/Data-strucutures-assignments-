@@ -1,0 +1,52 @@
+#include <iostream>
+#include <stack>
+#include <cctype>
+using namespace std;
+
+int priority(char op) {
+    if (op == '^') return 3;
+    if (op == '*' || op == '/') return 2;
+    if (op == '+' || op == '-') return 1;
+    return -1;
+}
+
+string convert(string exp) {
+    stack<char> stk;
+    string ans = "";
+    for (int i = 0; i < exp.length(); i++) {
+        char ch = exp[i];
+        if (isalnum(ch)) {
+            ans += ch;
+        }
+        else if (ch == '(') {
+            stk.push(ch);
+        }
+        else if (ch == ')') {
+            while (!stk.empty() && stk.top() != '(') {
+                ans += stk.top();
+                stk.pop();
+            }
+            stk.pop();
+        }
+        else {
+            while (!stk.empty() && priority(stk.top()) >= priority(ch)) {
+                ans += stk.top();
+                stk.pop();
+            }
+            stk.push(ch);
+        }
+    }
+    while (!stk.empty()) {
+        ans += stk.top();
+        stk.pop();
+    }
+    return ans;
+}
+
+int main() {
+    string input;
+    cout << "Enter infix expression: ";
+    cin >> input;
+    cout << "Postfix expression: " << convert(input) << endl;
+    return 0;
+}
