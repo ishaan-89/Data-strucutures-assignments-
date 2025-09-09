@@ -1,0 +1,42 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+bool checkParentheses(const string& exp) {
+    stack<char> s;
+
+    for (int i = 0; i < exp.length(); i++) {
+        char c = exp[i];
+
+        if (c == '(' || c == '{' || c == '[') {
+            s.push(c);
+        } 
+        else if (c == ')' || c == '}' || c == ']') {
+            if (s.empty()) return false;
+
+            char t = s.top();
+            s.pop();
+
+            if ((c == ')' && t != '(') ||
+                (c == '}' && t != '{') ||
+                (c == ']' && t != '[')) {
+                return false;
+            }
+        }
+    }
+
+    return s.empty();
+}
+
+int main() {
+    string input;
+    cout << "Enter expression to check: ";
+    cin >> input;
+
+    if (checkParentheses(input))
+        cout << "Expression is Balanced " << endl;
+    else
+        cout << "Expression is not Balanced " << endl;
+
+    return 0;
+}
