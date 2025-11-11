@@ -1,0 +1,208 @@
+a) #include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int key;
+    Node *left, *right;
+    Node(int k): key(k), left(NULL), right(NULL) {}
+};
+
+Node* insertNode(Node* root, int k) {
+    if (!root) return new Node(k);
+    if (k < root->key) root->left = insertNode(root->left, k);
+    else if (k > root->key) root->right = insertNode(root->right, k);
+    return root;
+}
+
+Node* searchRec(Node* root, int k) {
+    if (!root || root->key == k) return root;
+    if (k < root->key) return searchRec(root->left, k);
+    else return searchRec(root->right, k);
+}
+
+Node* searchIter(Node* root, int k) {
+    Node* cur = root;
+    while (cur) {
+        if (k == cur->key) return cur;
+        if (k < cur->key) cur = cur->left;
+        else cur = cur->right;
+    }
+    return NULL;
+}
+
+int main() {
+    Node* root = NULL;
+    int a[] = {20, 8, 22, 4, 12, 10, 14};
+    for (int x : a) root = insertNode(root, x);
+    cout << (searchRec(root, 10) ? "FOUND" : "NOT FOUND") << "\n";
+    cout << (searchIter(root, 15) ? "FOUND" : "NOT FOUND") << "\n";
+}
+
+
+b) 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int key; Node *left, *right;
+    Node(int k): key(k), left(NULL), right(NULL) {}
+};
+
+Node* insertNode(Node* root, int k) {
+    if (!root) return new Node(k);
+    if (k < root->key) root->left = insertNode(root->left, k);
+    else if (k > root->key) root->right = insertNode(root->right, k);
+    return root;
+}
+
+Node* findMax(Node* root) {
+    if (!root) return NULL;
+    while (root->right) root = root->right;
+    return root;
+}
+
+int main() {
+    Node* root = NULL;
+    int a[] = {20, 8, 22, 4, 12, 10, 14, 30};
+    for (int x : a) root = insertNode(root, x);
+    Node* mx = findMax(root);
+    if (mx) cout << mx->key;
+}
+
+c)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int key; Node *left, *right;
+    Node(int k): key(k), left(NULL), right(NULL) {}
+};
+
+Node* insertNode(Node* root, int k) {
+    if (!root) return new Node(k);
+    if (k < root->key) root->left = insertNode(root->left, k);
+    else if (k > root->key) root->right = insertNode(root->right, k);
+    return root;
+}
+
+Node* findMin(Node* root) {
+    if (!root) return NULL;
+    while (root->left) root = root->left;
+    return root;
+}
+
+int main() {
+    Node* root = NULL;
+    int a[] = {20, 8, 22, 4, 12, 10, 14};
+    for (int x : a) root = insertNode(root, x);
+    Node* mn = findMin(root);
+    if (mn) cout << mn->key;
+}
+
+d)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int key; Node *left, *right;
+    Node(int k): key(k), left(NULL), right(NULL) {}
+};
+
+Node* insertNode(Node* root, int k) {
+    if (!root) return new Node(k);
+    if (k < root->key) root->left = insertNode(root->left, k);
+    else if (k > root->key) root->right = insertNode(root->right, k);
+    return root;
+}
+
+Node* findMin(Node* root) {
+    while (root->left) root = root->left;
+    return root;
+}
+
+Node* search(Node* root, int k) {
+    while (root && root->key != k) {
+        if (k < root->key) root = root->left;
+        else root = root->right;
+    }
+    return root;
+}
+
+Node* inorderSuccessor(Node* root, Node* x) {
+    if (x->right) return findMin(x->right);
+    Node* succ = NULL;
+    Node* cur = root;
+    while (cur) {
+        if (x->key < cur->key) {
+            succ = cur;
+            cur = cur->left;
+        } else if (x->key > cur->key) cur = cur->right;
+        else break;
+    }
+    return succ;
+}
+
+int main() {
+    Node* root = NULL;
+    int a[] = {20, 8, 22, 4, 12, 10, 14};
+    for (int x : a) root = insertNode(root, x);
+    Node* x = search(root, 12);
+    Node* s = inorderSuccessor(root, x);
+    if (s) cout << s->key;
+}
+
+e)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int key; Node *left, *right;
+    Node(int k): key(k), left(NULL), right(NULL) {}
+};
+
+Node* insertNode(Node* root, int k) {
+    if (!root) return new Node(k);
+    if (k < root->key) root->left = insertNode(root->left, k);
+    else if (k > root->key) root->right = insertNode(root->right, k);
+    return root;
+}
+
+Node* findMax(Node* root) {
+    while (root->right) root = root->right;
+    return root;
+}
+
+Node* search(Node* root, int k) {
+    while (root && root->key != k) {
+        if (k < root->key) root = root->left;
+        else root = root->right;
+    }
+    return root;
+}
+
+Node* inorderPredecessor(Node* root, Node* x) {
+    if (x->left) return findMax(x->left);
+    Node* pred = NULL;
+    Node* cur = root;
+    while (cur) {
+        if (x->key > cur->key) {
+            pred = cur;
+            cur = cur->right;
+        } else if (x->key < cur->key) cur = cur->left;
+        else break;
+    }
+    return pred;
+}
+
+int main() {
+    Node* root = NULL;
+    int a[] = {20, 8, 22, 4, 12, 10, 14};
+    for (int x : a) root = insertNode(root, x);
+    Node* x = search(root, 12);
+    Node* p = inorderPredecessor(root, x);
+    if (p) cout << p->key;
+}
