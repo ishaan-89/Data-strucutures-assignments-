@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int key;
+    Node *left, *right;
+    Node(int k) : key(k), left(NULL), right(NULL) {}
+};
+
+Node* newNode(int k) {
+    return new Node(k);
+}
+
+
+bool isBSTUtil(Node* root, Node* &prev) {
+    if (root == NULL) return true;
+
+    if (!isBSTUtil(root->left, prev)) return false;
+
+    if (prev != NULL && root->key <= prev->key) return false;
+    prev = root;
+
+    return isBSTUtil(root->right, prev);
+}
+
+bool isBST(Node* root) {
+    Node* prev = NULL;
+    return isBSTUtil(root, prev);
+}
+
+int main() {
+
+    Node* root = newNode(4);
+    root->left = newNode(2);
+    root->right = newNode(6);
+    root->left->left = newNode(1);
+    root->left->right = newNode(3);
+
+    if (isBST(root))
+        cout << "The given tree is a BST\n";
+    else
+        cout << "The given tree is NOT a BST\n";
+
+    return 0;
+}
